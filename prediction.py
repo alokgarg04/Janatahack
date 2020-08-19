@@ -23,12 +23,22 @@ if __name__ == '__main__':
     submission = pd.read_csv('./sample_submission_UVKGLZE.csv')
     test_feature_clean = pd.read_csv('./test_feature_clean.csv')
     cols = submission.columns
-    final_test_dataset = joblib.load('./final_test_dataset.pkl').toarray()
+    test_data = joblib.load('./test_vector.pkl')
 
     model_computer_science = joblib.load('./model_computer_science.pkl')
-    # model_Mathematics = joblib.load('./model_Mathematics.pkl')
-    # model_Physics = joblib.load('./model_Physics.pkl')
-    # model_Quantitative_Biology = joblib.load('./model_Quantitative_Biology.pkl')
-    # model_Quantitative_Finance = joblib.load('./model_Quantitative_Finance.pkl')
-    # model_Statistics = joblib.load('./model_Statistics.pkl')
-    pred_peds = predict(final_test_dataset,model_computer_science)
+    model_Mathematics = joblib.load('./model_Mathematics.pkl')
+    model_Physics = joblib.load('./model_Physics.pkl')
+    model_Quantitative_Biology = joblib.load('./model_Quantitative_Biology.pkl')
+    model_Quantitative_Finance = joblib.load('./model_Quantitative_Finance.pkl')
+    model_Statistics = joblib.load('./model_Statistics.pkl')
+
+    pred_peds = predict(test_data,model_computer_science)
+
+    submission['Computer Science'] = np.array(predict(test_data,model_computer_science))
+    submission['Physics'] = np.array(predict(test_data,model_Physics))
+    submission['Mathematics'] = np.array(predict(test_data,model_Mathematics))
+    submission['Statistics'] = np.array(predict(test_data,model_Statistics))
+    submission['Quantitative Biology'] = np.array(predict(test_data,model_Quantitative_Biology))
+    submission['Quantitative Finance'] = np.array(predict(test_data,model_Quantitative_Finance))
+
+    submission.to_csv('./submission.csv',index= False)

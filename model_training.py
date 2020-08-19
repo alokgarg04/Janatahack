@@ -37,33 +37,38 @@ if __name__ == "__main__":
     train = pd.read_csv('./train.csv')
     target = train.loc[:,['Computer Science','Physics','Mathematics','Statistics','Quantitative Biology','Quantitative Finance']]
     final_dataset = joblib.load('./final_dataset.pkl')
+
+    train_vector = final_dataset[:20972,:].toarray()
+    joblib.dump(train_vector,'./train_vector.pkl')
+
+    test_vector = final_dataset[20972:,:].toarray()
+    joblib.dump(test_vector,'./test_vector.pkl')
+
     final_dataset = final_dataset.toarray()
-    # computer_science = np.array(target['Computer Science']).reshape(-1,1)
-    # Physics = np.array(target['Physics']).reshape(-1,1)
+    computer_science = np.array(target['Computer Science']).reshape(-1,1)
+    Physics = np.array(target['Physics']).reshape(-1,1)
     Mathematics = np.array(target['Mathematics']).reshape(-1,1)
-    # Statistics = np.array(target['Statistics']).reshape(-1,1)
-    # Quantitative_Biology = np.array(target['Quantitative Biology']).reshape(-1,1)
-    # Quantitative_Finance = np.array(target['Quantitative Finance']).reshape(-1,1)
+    Statistics = np.array(target['Statistics']).reshape(-1,1)
+    Quantitative_Biology = np.array(target['Quantitative Biology']).reshape(-1,1)
+    Quantitative_Finance = np.array(target['Quantitative Finance']).reshape(-1,1)
 
 
 
-    # pred_Mathematics,score_Mathematics,clf = training(final_dataset,Mathematics)
-    # joblib.dump(clf,'./jantahack.pkl')
-    # print(score)
-    # model_computer_science = training_fullData(final_dataset,computer_science)
-    # joblib.dump(model_computer_science,'./model_computer_science.pkl')
 
-    # model_Physics = training_fullData(final_dataset,Physics)
-    # joblib.dump(model_Physics,'./model_Physics.pkl')
+    model_computer_science = training_fullData(train_vector,computer_science)
+    joblib.dump(model_computer_science,'./model_computer_science.pkl')
 
-    model_Mathematics = training_fullData(final_dataset,Mathematics)
+    model_Physics = training_fullData(train_vector,Physics)
+    joblib.dump(model_Physics,'./model_Physics.pkl')
+
+    model_Mathematics = training_fullData(train_vector,Mathematics)
     joblib.dump(model_Mathematics,'./model_Mathematics.pkl')
 
-    # model_Statistics = training_fullData(final_dataset,Statistics)
-    # joblib.dump(model_Statistics,'./model_Statistics.pkl')
+    model_Statistics = training_fullData(train_vector,Statistics)
+    joblib.dump(model_Statistics,'./model_Statistics.pkl')
 
-    # model_Quantitative_Biology = training_fullData(final_dataset,Quantitative_Biology)
-    # joblib.dump(model_Quantitative_Biology,'./model_Quantitative_Biology.pkl')
+    model_Quantitative_Biology = training_fullData(train_vector,Quantitative_Biology)
+    joblib.dump(model_Quantitative_Biology,'./model_Quantitative_Biology.pkl')
 
-    # model_Quantitative_Finance = training_fullData(final_dataset,Quantitative_Finance)
-    # joblib.dump(model_Quantitative_Finance,'./model_Quantitative_Finance.pkl')
+    model_Quantitative_Finance = training_fullData(train_vector,Quantitative_Finance)
+    joblib.dump(model_Quantitative_Finance,'./model_Quantitative_Finance.pkl')

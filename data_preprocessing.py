@@ -86,10 +86,11 @@ def Tf_idf(text):
 if __name__ == '__main__':
     print('working on jantahack')
     train = pd.read_csv('./train.csv')
+    test = pd.read_csv('./test.csv')
     cols = train.columns
     target = train.loc[:,['Computer Science','Physics','Mathematics','Statistics','Quantitative Biology','Quantitative Finance']]
     feature = train.drop(['ID','Computer Science','Physics','Mathematics','Statistics','Quantitative Biology','Quantitative Finance'],axis = 1)
-
+    feature = feature.append(test)
     feature_clean = data_cleaning(feature)
 
     title = feature_clean['TITLE'].values
